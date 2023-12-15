@@ -260,13 +260,13 @@ class IIDSimulation(object):
     def __init__(self, W, n=1000, method='linear', 
                  sem_type='gauss', noise_scale=1.0):
 
-        self.B = (W != 0).astype(int)
         if method == 'linear':
             self.X = IIDSimulation._simulate_linear_sem(
                     W, n, sem_type, noise_scale)
         elif method == 'nonlinear':
             self.X = IIDSimulation._simulate_nonlinear_sem(
                     W, n, sem_type, noise_scale)
+        self.B = (W != 0).astype(int)
         logging.info('Finished synthetic dataset')
 
     @staticmethod
