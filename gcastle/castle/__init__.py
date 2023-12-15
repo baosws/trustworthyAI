@@ -26,8 +26,8 @@ from castle.common import GraphDAG
 from castle.metrics import MetricsDAG
 
 
-logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
-                    level=logging.INFO)
+# logging.basicConfig(format='%(asctime)s - %(pathname)s[line:%(lineno)d] - %(levelname)s: %(message)s',
+#                     level=logging.INFO)
 
 
 def _import_algo(algo):
