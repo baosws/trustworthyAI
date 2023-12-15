@@ -27,6 +27,7 @@ from .helpers.torch_utils import set_seed
 from .helpers.lambda_utils import BIC_lambdas
 from .helpers.analyze_utils import convert_graph_int_to_adj_mat, \
     graph_prunned_by_coef, graph_prunned_by_coef_2nd
+from .helpers.cam_with_pruning_cam import pruning_cam
 
 from castle.common import BaseLearner, Tensor
 from castle.metrics import MetricsDAG
@@ -434,6 +435,10 @@ class RL(BaseLearner):
                     graph_batch_pruned = np.array(graph_prunned_by_coef(graph_batch, training_set.inputdata))
                 elif reg_type == 'QR':
                     graph_batch_pruned = np.array(graph_prunned_by_coef_2nd(graph_batch, training_set.inputdata))
+                elif reg_type == 'GPR':
+                    # The R codes of CAM pruning operates the graph form that (i,j)=1 indicates i-th node-> j-th node
+                    # so we need to do a tranpose on the input graph and another tranpose on the output graph
+                    graph_batch_pruned = np.transpose(pruning_cam(training_set.inputdata, np.array(graph_batch).T))
 
                 if self.dag:
                     met = MetricsDAG(graph_batch.T, training_set.true_graph)
