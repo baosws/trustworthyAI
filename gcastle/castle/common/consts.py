@@ -33,7 +33,7 @@ CORL_VALID_PARAMS = {
     'decoder_name': ['lstm', 'mlp'],
     'reward_mode': ['episodic', 'dense'],
     'reward_score_type': ['BIC', 'BIC_different_var'],
-    'reward_regression_type': ['LR']
+    'reward_regression_type': ['LR', 'GPR']
 }
 
 # RL
