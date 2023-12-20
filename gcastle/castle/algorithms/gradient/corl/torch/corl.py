@@ -141,6 +141,7 @@ class CORL(BaseLearner):
                  alpha=0.99,  # for score function
                  init_baseline=-1.0,
                  random_seed=0,
+                 cam_pruning=True, # for GPR only
                  device_type='cpu',
                  device_ids=0
                  ):
@@ -165,6 +166,7 @@ class CORL(BaseLearner):
         self.alpha                  = alpha
         self.init_baseline          = init_baseline
         self.random_seed            = random_seed
+        self.cam_pruning            = cam_pruning
         self.device_type            = device_type
         self.device_ids             = device_ids
         if reward_mode == 'dense':
@@ -390,7 +392,7 @@ class CORL(BaseLearner):
                 elif self.reward_regression_type == 'GPR':
                     # The R codes of CAM pruning operates the graph form that (i,j)=1 indicates i-th node-> j-th node
                     # so we need to do a tranpose on the input graph and another tranpose on the output graph
-                    graph_batch_pruned = np.transpose(pruning_cam(data_generator.dataset.cpu().detach().numpy(), np.array(graph_batch).T))
+                    graph_batch_pruned = np.transpose(pruning_cam(data_generator.dataset.cpu().detach().numpy(), np.array(graph_batch).T)) if self.cam_pruning else graph_batch
                 else:
                     raise ValueError(f"reward_regression_type must be one of "
                                      f"['LR', 'QR'], but got "
