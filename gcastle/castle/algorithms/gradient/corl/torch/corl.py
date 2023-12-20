@@ -20,7 +20,7 @@ import platform
 import random
 from tqdm import tqdm
 import numpy as np
-from gcastle.castle.algorithms.gradient.rl.torch.helpers.cam_with_pruning_cam import pruning_cam
+from castle.algorithms.gradient.rl.torch.helpers.cam_with_pruning_cam import pruning_cam
 import torch
 
 from castle.common import BaseLearner, Tensor, consts
